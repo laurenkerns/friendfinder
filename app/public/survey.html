@@ -164,7 +164,7 @@
 
 
 
-              <button type="submit" class="btn btn-dark submit">Find my Friend!!!!</button>
+              <button type="submit" class="btn btn-dark submit" id= "submit">Find my Friend!!!!</button>
             </form>
           </div>
         </div>
@@ -179,32 +179,26 @@
     </footer>
 
     <!--MODAL to show new best friend/ best friend match!-->
-
-    <div class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+    <div id="newFriend-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+  
+        <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Meet Your New Friend!</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title"><strong>Meet your new BEST FRIEND!</strong></h2>
           </div>
           <div class="modal-body">
-            <p id = "nfName"></p>
-            <img id = "nfPhoto" height="300px">
+            <h2 id="nfName"></h2>
+            <img id="nfPhoto">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
+  
       </div>
     </div>
-
-
-
-
-
-
 
 <!--end container div-->
   </div>
@@ -213,7 +207,7 @@
 <!--This code will be how out form handles data...JS will post form data to express server-->
 <script type = "text/javascript">
 
-$(".sumbit").on("click", function(event){
+$("#sumbit").on("click", function(event){
   event.preventDefault();
 
   //grab form elements
@@ -240,11 +234,12 @@ $(".sumbit").on("click", function(event){
   // The callback is the response of the server
 
   $.post("api/friends", newFriend, function(data){
-    if(data){
       $("#nfName").text(data.nfName);
       $("#nfPhoto").attr("src", data.nfPhoto);
-    }
-  })
+    
+    //show modal
+    $("#newFriend-modal").modal("toggle");
+    })
 })
 
 
