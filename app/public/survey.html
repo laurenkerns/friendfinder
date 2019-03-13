@@ -182,6 +182,49 @@
 
   </div>
 
+<!--SCRIPT-->
+<!--This code will be how out form handles data...JS will post form data to express server-->
+<script type = "text/javascript">
+
+$(".sumbit").on("click", function(event){
+  event.preventDefault();
+
+  //grab form elements
+  const newFriend = {
+    name: $("#name").val().trim(),
+    photo: $("#photo").val().trim(),
+    scores: [
+      $("#question1").val().trim(),
+      $("#question2").val().trim(),
+      $("#question3").val().trim(),
+      $("#question4").val().trim(),
+      $("#question5").val().trim(),
+      $("#question6").val().trim(),
+      $("#question7").val().trim(),
+      $("#question8").val().trim(),
+      $("#question9").val().trim(),
+      $("#question10").val().trim(),
+    ]
+  }
+
+  console.log(newFriend);
+
+  //give it a URL, we give it the object we want to send, then we have a "callback".
+  // The callback is the response of the server
+
+  $.post("api/friends", newFriend, function(data){
+    if(data){
+      $("#nfName").text(data.nfName);
+      $("#nfPhoto").attr("src", data.nfPhoto);
+    }
+  })
+})
+
+
+
+
+</script>
+
 </body>
 
 </html>
