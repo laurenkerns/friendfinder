@@ -11,7 +11,17 @@ app.get("/api/friends", function(req,res){
 });
 
 //POST REQUEST//server responds to request
+//Save data once submitted
 app.post("/api/friends", function(req,res){
+    let friendMatch = req.body;
+    possibleFriends.push(friendMatch);
+    res.json(findFriend(friends));
     
-})
-};
+});
+}
+
+
+function findFriend(){
+
+
+}

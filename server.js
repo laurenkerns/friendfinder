@@ -11,9 +11,10 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
 
-//HTML ROUTES
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+//ROUTES
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
+
 
 
 // SERVER LISTENING 
