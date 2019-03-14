@@ -233,14 +233,15 @@ $("#sumbit").on("click", function(event){
   //give it a URL, we give it the object we want to send, then we have a "callback".
   // The callback is the response of the server
 
-  $.post("api/friends", newFriendInput, function(data){
+  $.post("api/friends", newFriendInput)
+  .done (function(data){
       $("#nfName").text(data.nfName);
       $("#nfPhoto").attr("src", data.nfPhoto);
     
     //show modal
     $("#newFriend-modal").modal("show");
   });
-  
+
 });
 
 
