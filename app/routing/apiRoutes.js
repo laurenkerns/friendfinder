@@ -1,7 +1,7 @@
 //link routes to a series of "data sources"
 //arrays of data will hold data from all possible friends
 
-const possibleFriends = require("../data/friends.js");
+var possibleFriends = require("../data/friends.js");
 
 //export module
 module.exports = function(app){
@@ -17,29 +17,29 @@ app.get("/api/friends", function(req,res){
 //Save data once submitted
 app.post("/api/friends", function(req,res){
     //Use data from survey and store in variables
-    let newFriendInput = req.body;
-    let newFriendScore = newFriendInput.scores;
-    let newFriendName = "";
-    let newFriendPhoto = "";
-    //use dummy difference 
-    let totalDifference = 100; 
+    // let userInput = req.body;
+    // console.log(userInput);
+    var userScores = req.body.scores;
+    var minDifference = 50;  //dummy number
 
-
-    // loop through all friends 
-    for (var i = 0; i < possibleFriends.length; i++){
-        let difference = 0;
-            for( var f = 0; f <newFriendScore.length; f++){
-                difference += Math.abs(possibleFriends[i].scores[j] - newFriendScore[f]);
+     
+    // loop through all friends and compare current user's data against friends.js
+    for (let i = 0; i < possibleFriends.length; i++){
+        var totalDifference = 0;
+//////ERROR LINE 32
+        for (let f = 0; f < userScores.length; f++){
+            var difference = Math.abs(possibleFriends[i].scores[f] - userScores[f]);  //math.abs returns an absolute value
+            totalDifference += difference;
             }
-            if (difference < totalDifference){
-                totalDifference = difference;
-                newFriendName = possibleFriends[i].name;
-                newFriendPhoto = possibleFriends[i].photo;
+            if (totalDifference < minDifference){
+                minDifference = totalDifference;
+                var bestMatch = i;
+                
             }
     }
     //push to friends array
-    possibleFriends.push(newFriendInput);
-    res.json({status: 'OK', newFriendName : newFriendName, newFriendPhoto : newFriendPhoto});
+    possibleFriends.push(req.body);
+    res.json(possibleFriends[bestMatch]);
 
     
 });

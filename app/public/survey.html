@@ -26,7 +26,7 @@
             <h3>About You</h3>
           </div>
           <div class="card-body">
-            <form role="form">
+            <form role="form"> <!--try using form id to capture data-->
               <div class="form-group">
                 <label for="name">Name (required)</label>
                 <input type="text" class="form-control" id="name">
@@ -179,7 +179,7 @@
     </footer>
 
     <!--MODAL to show new best friend/ best friend match!-->
-    <div id="newFriend-modal" class="modal fade" role="dialog">
+    <div  class="modal fade" role="dialog" id="newFriend-modal">
       <div class="modal-dialog">
   
         <!-- Modal content-->
@@ -211,7 +211,7 @@ $("#sumbit").on("click", function(event){
   event.preventDefault();
 
   //grab form elements
-  const newFriendInput = {
+  const userInput = {
     name: $("#name").val().trim(),
     photo: $("#photo").val().trim(),
     scores: [
@@ -233,10 +233,10 @@ $("#sumbit").on("click", function(event){
   //give it a URL, we give it the object we want to send, then we have a "callback".
   // The callback is the response of the server
 
-  $.post("api/friends", newFriendInput)
-  .done (function(data){
-      $("#nfName").text(data.nfName);
-      $("#nfPhoto").attr("src", data.nfPhoto);
+  $.post("/api/friends", userInput)
+  .then (function(data){
+      $("#nfName").html(data.matchName);
+      $("#nfPhoto").attr("src", data.matchPhoto);
     
     //show modal
     $("#newFriend-modal").modal("show");
