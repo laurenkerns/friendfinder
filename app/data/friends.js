@@ -159,7 +159,7 @@ const friendsArray = [{
         2,
         1
       ]
-  },
+  }
 
 ]
 

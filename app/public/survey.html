@@ -210,8 +210,10 @@
 $("#sumbit").on("click", function(event){
   event.preventDefault();
 
+  
+
   //grab form elements
-  const userInput = {
+  var newFriend = {
     name: $("#name").val().trim(),
     photo: $("#photo").val().trim(),
     scores: [
@@ -233,13 +235,12 @@ $("#sumbit").on("click", function(event){
   //give it a URL, we give it the object we want to send, then we have a "callback".
   // The callback is the response of the server
 
-  $.post("/api/friends", userInput)
-  .then (function(data){
-      $("#nfName").html(data.matchName);
-      $("#nfPhoto").attr("src", data.matchPhoto);
+  $.post("/api/friends", newFriend, function(data){
+      $("#nfName").data(data.matchedName);
+      $("#nfPhoto").attr("src", data.matchedPhoto);
     
-    //show modal
-    $("#newFriend-modal").modal("show");
+      $("#newFriend-modal").modal("show");
+  
   });
 
 });
